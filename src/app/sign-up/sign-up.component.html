@@ -1,0 +1,42 @@
+<form #myForm="ngForm" (ngSubmit)="myForm.valid && onSubmit()"> 
+    <!--au moment de l'envoi du formulaire, vérification des erreurs-->
+    <!--Tant que tous les champs ne sont pas bien remplis, le formulaire ne pourra pas s'envoyer-->
+
+    <fieldset>
+        <label for="email">Email</label> 
+        <input type="email" name="email" placeholder="laurie@example.com" #email="ngModel" [(ngModel)]="user.email" required mail>
+    </fieldset>
+
+    <!-- mettre les messages d'erreurs quand le formulaire est soumis on doit mettre une nouvelle div avec submitted -->
+    <div *ngIf="myForm.submitted">
+    <div *ngIf="email.errors">
+        <span *ngIf="email.errors?.['required']">L'email est requis</span>
+        <span *ngIf="email.errors?.['minlength']">La longueur maximale doit être supérieure à 5</span>
+    </div>
+    </div>
+    
+    <fieldset>
+        <label for="firstName">Firstname</label>
+        <input type="text" name="firstName" placeholder="Laurie" #firstName="ngModel" [(ngModel)]="user.firstName" required minlength="3" maxlength="15">
+    </fieldset>
+
+    
+    <div *ngIf="myForm.submitted">
+        <div *ngIf="firstName.errors">
+            <span *ngIf="firstName.errors?.['required']">Le prénom est requis</span>
+            <span *ngIf="firstName.errors?.['minlength']">La longueur maximale doit être supérieure à 5</span>
+        </div>
+        </div>
+
+    <fieldset>
+        <label for="lastName">Lastname</label>
+        <input type="text" placeholder="Boucher" [(ngModel)]="user.lastName" required minlength="3" maxlength="15">
+    </fieldset>
+
+    <fieldset>
+        <label for="password">Password</label>
+        <input type="password" placeholder="*******" [(ngModel)]="user.password" required>
+    </fieldset>
+    <button type="submit">Submit</button>
+    <button type="reset">Reset</button>
+</form>
